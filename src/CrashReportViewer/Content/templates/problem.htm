@@ -1,0 +1,91 @@
+﻿<div ng-controller="ProblemController as page">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<div class="row">
+				<div class="col-xs-10 ellipsis header">Problem > {{page.problem.shortDescription}}</div>
+				<div class="buttons-panel col-xs-2">
+					<div class="btn btn-default" ng-click="page.postToRedmine()"><span class="icon icon-redmine"></span></div>
+					<div class="btn btn-default" ng-click="page.edit()"><span class="glyphicon glyphicon-edit"></span></div>	
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<div>
+				<div class="row">
+					<label class="col-md-3">Status</label>
+					<div class="col-md-9">{{page.problem.status}}</div>
+				</div>
+				<div class="row" ng-if="page.problem.status != 'New'">
+					<label class="col-md-3">Fixed in version</label>
+					<div class="col-md-9"><span class="badge">{{page.problem.fixedInVersion}}</span></div>
+				</div>
+				<div class="row">
+					<label class="col-md-3">Module</label>
+					<div class="col-md-9">{{page.problem.module}}</div>
+				</div>
+				<div class="row">
+					<label class="col-md-3">Short description</label>
+					<div class="col-md-9">{{page.problem.shortDescription}}</div>
+				</div>
+				<div class="row" ng-if="page.problem.externalId">
+					<label class="col-md-3">Redmine issue:</label>
+					<div class="col-md-9"><a href="{{page.problem.externalId}}" target="_blank">View in redmine</a></div>
+				</div>
+			</div>
+		</div>
+		
+		<ul class="list-group">
+			<li class="list-group-item active">
+				<div class="row">
+					<div class="col-md-11">Full description</div>
+					<div class="col-md-1">
+						<div class="btn btn-default pull-right" ng-click="page.toggleDescription()">
+							<span class="glyphicon glyphicon-menu-{{page.problemDescriptionCollapsed ? 'down' : 'up'}}"></span>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li class="list-group-item">
+				<div ng-bind-html="(page.problemDescriptionCollapsed ? page.problem.collapsedDescription: page.problem.description) | trusted"></div>
+			</li>
+			<li class="list-group-item active">Crashes</li>
+		</ul>
+
+		<table class="table table-stripped table-hover">
+			<tr>
+				<th class="col-md-2">Date</th>
+				<th class="col-md-1">Version</th>
+				<th class="col-md-9">Message</th>
+			</tr>
+			<tr ng-repeat="crash in page.crashes" ng-click="page.navigateToCrash(crash.id)">
+				<td>{{crash.date}}</td>
+				<td><span class="badge">{{crash.version}}</span></td>
+				<td>{{crash.message}}</td>
+			</tr>
+		</table>
+
+		<div class="panel-heading">
+			Related problems
+		</div>
+		<table class="table table-stripped table-hover">
+			<tr>
+				<th class="col-md-2">Module</th>
+				<th class="col-md-1">Erorr Id</th>
+				<th class="col-md-7">Short description</th>
+				<th class="col-md-2">Last occurence</th>
+			</tr>
+			<tr class="problem-row" ng-repeat="problem in page.relatedProblems" ng-click="page.navigateToProblem(problem.id)" 
+				ng-class="{
+						new: problem.status == 'New',
+						fixed: problem.status == 'Fixed',
+						deployed: problem.status == 'Deployed',
+						repeated: problem.status == 'Repeated'
+					}">
+				<td>{{problem.module}}</td>
+				<td>{{problem.id}}</td>
+				<td>{{problem.shortDescription}}</td>
+				<td>{{problem.lastOccurence}}</td>
+			</tr>
+		</table>
+	</div>
+</div>

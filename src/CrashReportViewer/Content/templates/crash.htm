@@ -1,0 +1,75 @@
+﻿<div ng-controller="CrashController as page">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			Problem > <a href="#/problems/{{page.problem.id}}">{{page.problem.shortDescription}}</a> > {{page.crash.date}}
+		</div>
+		<div class="panel-body">
+			<div>
+				<div class="row">
+					<label class="col-md-3">Module</label>
+					<div class="col-md-9">{{page.crash.module}}</div>
+				</div>
+				<div class="row">
+					<label class="col-md-3">Version</label>
+					<div class="col-md-9">{{page.crash.version}}</div>
+				</div>
+				<div class="row">
+					<label class="col-md-3">Short description</label>
+					<div class="col-md-9">{{page.problem.shortDescription}}</div>
+				</div>
+				<div class="row">
+					<label class="col-md-3">Timestamp</label>
+					<div class="col-md-9">{{page.crash.date}}</div>
+				</div>
+				<div class="row">
+					<label class="col-md-3">Message</label>
+					<div class="col-md-9">{{page.crash.message}}</div>
+				</div>
+				<div class="row">
+					<label class="col-md-3">Additional information</label>
+					<div class="col-md-9">
+						<json-formatter json="page.additionalInformation" open="1"></json-formatter>
+					</div>
+				</div>
+				<div class="row">
+					<label class="col-md-3">User Id</label>
+					<div class="col-md-9">{{page.crash.userId}}</div>
+				</div>
+				<div class="row">
+					<label class="col-md-3">Person Id</label>
+					<div class="col-md-9">{{page.crash.personId}}</div>
+				</div>
+			</div>
+		</div>
+		
+		<ul class="list-group">
+			<li class="list-group-item active">
+				<div class="row">
+					<div class="col-md-11">Stack trace</div>
+					<div class="col-md-1">
+						<div class="btn btn-default pull-right" ng-click="page.toggleStackTrace()">
+							<span class="glyphicon glyphicon-menu-{{page.stackTraceCollapsed ? 'down' : 'up'}}"></span>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li class="list-group-item">
+				<div ng-bind-html="(page.stackTraceCollapsed ? page.crash.collapsedStackTrace: page.crash.stackTrace) | trusted"></div>
+			</li>
+
+			<li class="list-group-item active">
+				<div class="row">
+					<div class="col-md-11">Inner exception</div>
+					<div class="col-md-1">
+						<div class="btn btn-default pull-right" ng-click="page.toggleInnerException()">
+							<span class="glyphicon glyphicon-menu-{{page.innerExceptionCollapsed ? 'down' : 'up'}}"></span>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li class="list-group-item">
+				<div ng-bind-html="(page.innerExceptionCollapsed ? page.crash.collapsedInnerException: page.crash.innerException) | trusted"></div>
+			</li>
+		</ul>
+	</div>
+</div>

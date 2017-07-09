@@ -1,0 +1,7 @@
+src/CrashReportViewer/node_modules/
+src/CrashReport.jQueryAdapter/node_modules
+*/bin/*
+*/packages/*
+*/bin
+**/bin/*
+**/obj/*

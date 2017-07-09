@@ -1,0 +1,37 @@
+﻿<div ng-controller="CrashesController as page">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<div class="row">
+				<div class="col-xs-11 ellipsis header">Crashes</div>
+			</div>
+		</div>
+		<table class="table table-stripped table-hover">
+			<thead>
+				<tr>
+					<th class='centred'>Date</th>
+					<th class='centred'>Module</th>
+					<th class='centred'>App version</th>
+					<th class='centred'>Error Id</th>
+					<th class='centred'>Short description</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr ng-repeat="crash in page.crashes" ng-click="page.navigateToCrash(crash.id)" class="crash-row">
+					<td class='centred'>{{crash.date}}</td>
+					<td class='centred'>{{crash.module}}</td>
+					<td class='centred'>{{crash.version}}</td>
+					<td class='centred'>{{crash.problemId}}</td>
+					<td class='centred'>{{crash.shortDescription}}</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr ng-if="page.hasMoreData">
+					<td colspan="5" class="centred">
+						<button class="btn btn-default" ng-click="page.loadNextPage()">More</button>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>

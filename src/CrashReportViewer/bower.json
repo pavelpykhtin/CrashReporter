@@ -1,0 +1,27 @@
+{
+	"name": "crash-report-viewer",
+	"description": "",
+	"main": "gulpfile.js",
+	"authors": [
+		"pavel.pykhtin"
+	],
+	"license": "ISC",
+	"moduleType": [ ],
+	"homepage": "",
+	"private": true,
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"test",
+		"tests"
+	],
+	"dependencies": {
+		"d3": "3.5.12",
+		"bootstrap": "^3.3.6",
+		"jquery": "~1.11.0",
+		"jquery-crashreport": "~0.3.1",
+		"ng-crashreport": "~0.3.1",
+		"json-formatter":  "~0.6.0"
+	}
+}

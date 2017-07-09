@@ -1,0 +1,66 @@
+﻿@using CrashReportViewer
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width"/>
+	<link rel="icon" type="image/png" href="/Content/images/favicon.png"/>
+	<title>Crash reports viewer</title>
+	@*<script language="javascript">
+		window.application = {
+			logger: {
+				applicationKey: 'CRViewer',
+				url: 'http://localhost:62763'
+			},
+			version: '@typeof(CoreModule).Assembly.GetName().Version'
+		}
+	</script>*@
+
+	@Scripts.Render("~/bundles/angularjs")
+	@Scripts.Render("~/bundles/ui-bootstrap")
+	<script src="~/Content/scripts/prod/app.js" type="text/javascript"></script>
+	<script src="~/bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="~/bower_components/d3/d3.min.js"></script>
+	<script src="~/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="~/bower_components/jquery-crashreport/dist/jquery.crashreport.min.js"></script>
+	<script src="~/bower_components/json-formatter/dist/json-formatter.min.js"></script>
+	<script src="~/bower_components/ng-crashreport/dist/ng-crashreport.min.js"></script>
+	<link rel="stylesheet" href="~/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="~/bower_components/json-formatter/dist/json-formatter.min.css">
+	<link rel="stylesheet" href="~/Content/styles/prod/app.min.css"/>
+
+	@*<script language="javascript">
+		$(document).crashReport({
+			url: application.logger.url,
+			application: application.logger.applicationKey,
+			applicationVersion: application.version
+		});
+	</script>*@
+</head>
+	<body ng-app="CrashReportViewer" >
+		<nav class="navbar navbar-default">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#/home">
+					<span class="glyphicon glyphicon-alert"></span>
+					Crash Report Viewer
+				</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li><a href="#/home">Dashboard</a></li>
+			</ul>
+			<ul class="nav navbar-nav">
+				<li><a href="#/problems">Problems</a></li>
+			</ul>
+			<ul class="nav navbar-nav">
+				<li><a href="#/crashes">Crashes</a></li>
+			</ul>
+		</nav>
+
+
+		<div class="body">
+			@RenderBody()
+
+			@RenderSection("scripts", required: false)
+		</div>
+	</body>
+</html>

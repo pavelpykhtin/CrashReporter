@@ -1,0 +1,46 @@
+﻿<div ng-controller="ProblemsController as page">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<div class="row">
+				<div class="col-xs-11 ellipsis header">Problems</div>
+				<div class="col-xs-1">
+					<div class="btn btn-default" ng-click="page.doDeploy()"><span class="glyphicon glyphicon-save"></span></div>
+				</div>
+			</div>
+		</div>
+		<table class="table table-stripped table-hover">
+			<thead>
+				<tr>
+					<th class='centred'>Module</th>
+					<th class='centred'>Error Id</th>
+					<th class='centred'>Status</th>
+					<th class='centred'>Short description</th>
+					<th class='centred'>Last occurence</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr ng-repeat="problem in page.problems" ng-click="page.navigateToProblem(problem.id)" class="problem-row"
+					ng-class="{
+								new: problem.status == 'New',
+								fixed: problem.status == 'Fixed',
+								deployed: problem.status == 'Deployed',
+								repeated: problem.status == 'Repeated'
+							}">
+					<td class='centred'>{{problem.module}}</td>
+					<td class='centred'>{{problem.id}}</td>
+					<td class='centred'>{{problem.status}}</td>
+					<td class='centred'>{{problem.shortDescription}}</td>
+					<td class='centred'>{{problem.lastOccurence}}</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr ng-if="page.hasMoreData">
+					<td colspan="5" class="centred">
+						<button class="btn btn-default" ng-click="page.loadNextPage()">More</button>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,71 @@
+﻿<div ng-controller="DashboardController as dashboard">
+	<div class="row">
+		<!--<div class="col-lg-4">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Errors per signup</div>
+				<d3-line-chart chart-data="dashboard.errorsPerSignupChartData"></d3-line-chart>
+			</div>
+		</div>-->
+		<div class="col-lg-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Crashes per week</div>
+				<d3-line-chart chart-data="dashboard.errorsChartData"></d3-line-chart>
+			</div>
+		</div>
+		<!--<div class="col-lg-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Signups per week</div>
+				<d3-line-chart chart-data="dashboard.signupsChartData"></d3-line-chart>
+			</div>
+		</div>-->
+	</div>
+
+	<div class="panel panel-primary">
+		<div class="panel-heading">Recent crashes</div>
+		<table class="table table-stripped table-hover">
+			<tr>
+				<th class="centred col-md-2">Date</th>
+				<th class="centred col-md-2">App Version</th>
+				<th class="centred col-md-9">Short description</th>
+			</tr>
+			<tr ng-repeat="crash in dashboard.latestCrashes" ng-click="dashboard.navigateToCrash(crash.id)">
+				<td class="centred">{{crash.date}}</td>
+				<td class="centred">
+					<span class="badge">{{crash.version}}</span>
+				</td>
+				<td class="centred">{{crash.shortDescription}}</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="panel panel-primary">
+		<div class="panel-heading">Week statistics</div>
+		<table class="table table-stripped table-hover">
+			<thead>
+			<tr>
+				<th class='centred'>Module</th>
+				<th class='centred'>Error Id</th>
+				<th class='centred'>Status</th>
+				<th class='centred'>Short description</th>
+				<th class='centred'>Occurences</th>
+			</tr>
+			</thead>
+
+			<tbody>
+			<tr ng-repeat="problem in dashboard.latestProblems" ng-click="dashboard.navigateToProblem(problem.id)" class="problem-row"
+			    ng-class="{
+								new: problem.status == 'New',
+								fixed: problem.status == 'Fixed',
+								deployed: problem.status == 'Deployed',
+								repeated: problem.status == 'Repeated'
+							}">
+				<td class='centred'>{{problem.module}}</td>
+				<td class='centred'>{{problem.id}}</td>
+				<td class='centred'>{{problem.status}}</td>
+				<td class='centred'>{{problem.shortDescription}}</td>
+				<td class='centred'><span class="badge">{{problem.occurences}}</span></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
